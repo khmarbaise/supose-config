@@ -14,8 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import org.testng.annotations.Test;
-
 public class BrochureTest {
 	@XmlRootElement(name = "brochure")
 	static class Brochure {
@@ -83,7 +81,6 @@ public class BrochureTest {
 		}
 	}
 
-	@Test
 	public void baseTest() {
 
 		Brochure b = new Brochure();

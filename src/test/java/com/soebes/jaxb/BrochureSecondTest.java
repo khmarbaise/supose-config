@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.testng.annotations.Test;
 
-public class BrochureTest1 {
+public class BrochureSecondTest {
 	@XmlRootElement(name = "brochure")
 	static class Brochure {
 		@XmlJavaTypeAdapter(CourseListAdapter.class)

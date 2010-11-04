@@ -35,6 +35,7 @@ public class AppTest extends TestBase {
 		repo.setUsername("kama");
 		repo.setPassword("password");
 		config.addRepository(repo);
+		config.getResults().put(repo.getId(), repo);
 
 		repo = new Repository();
 		repo.setId("Test");
@@ -42,7 +43,8 @@ public class AppTest extends TestBase {
 		repo.setUsername("egon");
 		repo.setPassword("egon");
 		config.addRepository(repo);
-
+		config.getResults().put(repo.getId(), repo);
+		
 		FileOutputStream fout = new FileOutputStream(XMLFILE);
 		m.marshal(config, fout);
 		fout.close();

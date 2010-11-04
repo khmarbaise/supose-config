@@ -1,12 +1,14 @@
 package com.soebes.jaxb;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 @XmlRootElement
@@ -14,6 +16,8 @@ public class Configuration {
 
 	private ArrayList<Repository> repositories = new ArrayList<Repository>();
 	
+	private HashMap<String, Repository> results = new HashMap<String, Repository>();
+
 	public void setRepositories(ArrayList<Repository> repositories) {
 		this.repositories = repositories;
 	}
@@ -23,11 +27,21 @@ public class Configuration {
 	public ArrayList<Repository> getRepositories() {
 		return repositories;
 	}
-	
+
 	public void addRepository(Repository repository) {
 		getRepositories().add(repository);
 	}
 
+	public void setResults(HashMap<String, Repository> results) {
+		this.results = results;
+	}
+
+
+	@XmlJavaTypeAdapter(RepositoryAdapter.class)
+	@XmlElement(name = "results")
+	public HashMap<String, Repository> getResults() {
+		return results;
+	}
 
 	@Override
 	public int hashCode() {
@@ -35,6 +49,7 @@ public class Configuration {
 		int result = 1;
 		result = prime * result
 				+ ((repositories == null) ? 0 : repositories.hashCode());
+		result = prime * result + ((results == null) ? 0 : results.hashCode());
 		return result;
 	}
 
@@ -52,7 +67,13 @@ public class Configuration {
 				return false;
 		} else if (!repositories.equals(other.repositories))
 			return false;
+		if (results == null) {
+			if (other.results != null)
+				return false;
+		} else if (!results.equals(other.results))
+			return false;
 		return true;
 	}
+
 
 }

@@ -4,9 +4,12 @@ import java.net.URI;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 public class Repository {
+
+	private String id;
 
 	private URI uri;
 	private String username;
@@ -35,10 +38,21 @@ public class Repository {
 	public URI getUri() {
 		return uri;
 	}
+
+	@XmlAttribute
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getId() {
+		return id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
 				+ ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((uri == null) ? 0 : uri.hashCode());
@@ -46,6 +60,7 @@ public class Repository {
 				+ ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -55,6 +70,11 @@ public class Repository {
 		if (getClass() != obj.getClass())
 			return false;
 		Repository other = (Repository) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
@@ -74,36 +94,4 @@ public class Repository {
 	}
 
 	
-//	[JaGoSI]
-//	 url = http://svn.traveler/jagosi
-//	 fromrev = 1
-//	 torev = HEAD
-//	 indexusername = kama
-//	 indexpassword = kama
-//	 result = result
-//
-//	 [SupoSE]
-//	 url = http://svn.traveler/supose
-//	 fromrev = 1
-//	 torev = HEAD
-//	 indexusername = kama
-//	 indexpassword = kama
-//	 result = result
-//
-//	 [AntSVK]
-//	 url = http://svn.traveler/antsvk
-//	 fromrev = 1
-//	 torev = HEAD
-//	 indexusername = kama
-//	 indexpassword = kama
-//	 result = result
-//
-//	 [GForge]
-//	 url = http://svn.traveler/gforge
-//	 fromrev = 1
-//	 torev = HEAD
-//	 indexusername = kama
-//	 indexpassword = kama
-//	 result = result
-
 }

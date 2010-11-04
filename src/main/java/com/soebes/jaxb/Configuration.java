@@ -8,18 +8,18 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
 @XmlRootElement
 public class Configuration {
 
-	@XmlElementWrapper(name = "repositories") 
-	@XmlElement(name = "repository") 
 	private ArrayList<Repository> repositories = new ArrayList<Repository>();
 	
 	public void setRepositories(ArrayList<Repository> repositories) {
 		this.repositories = repositories;
 	}
 
+	@XmlElementWrapper(name = "repositories") 
+	@XmlElement(name = "repository") 
 	public ArrayList<Repository> getRepositories() {
 		return repositories;
 	}

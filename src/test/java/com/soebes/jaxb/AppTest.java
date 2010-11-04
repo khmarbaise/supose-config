@@ -30,12 +30,14 @@ public class AppTest extends TestBase {
 
 		Configuration config = new Configuration();
 		Repository repo = new Repository();
+		repo.setId("SupoSE");
 		repo.setUri(new URI("file:///svn.test.com/project/trunk"));
 		repo.setUsername("kama");
 		repo.setPassword("password");
 		config.addRepository(repo);
 
 		repo = new Repository();
+		repo.setId("Test");
 		repo.setUri(new URI("http://svn.test.com/p/branches"));
 		repo.setUsername("egon");
 		repo.setPassword("egon");

@@ -4,14 +4,16 @@ import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
-@XmlAccessorType(XmlAccessType.PUBLIC_MEMBER)
-@XmlType(name = "Configuration")
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 public class Configuration {
 
+	@XmlElementWrapper(name = "repositories") 
+	@XmlElement(name = "repository") 
 	private ArrayList<Repository> repositories = new ArrayList<Repository>();
 	
 	public void setRepositories(ArrayList<Repository> repositories) {
@@ -26,37 +28,31 @@ public class Configuration {
 		getRepositories().add(repository);
 	}
 
-//	[JaGoSI]
-//	 url = http://svn.traveler/jagosi
-//	 fromrev = 1
-//	 torev = HEAD
-//	 indexusername = kama
-//	 indexpassword = kama
-//	 result = result
-//
-//	 [SupoSE]
-//	 url = http://svn.traveler/supose
-//	 fromrev = 1
-//	 torev = HEAD
-//	 indexusername = kama
-//	 indexpassword = kama
-//	 result = result
-//
-//	 [AntSVK]
-//	 url = http://svn.traveler/antsvk
-//	 fromrev = 1
-//	 torev = HEAD
-//	 indexusername = kama
-//	 indexpassword = kama
-//	 result = result
-//
-//	 [GForge]
-//	 url = http://svn.traveler/gforge
-//	 fromrev = 1
-//	 torev = HEAD
-//	 indexusername = kama
-//	 indexpassword = kama
-//	 result = result
 
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((repositories == null) ? 0 : repositories.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Configuration other = (Configuration) obj;
+		if (repositories == null) {
+			if (other.repositories != null)
+				return false;
+		} else if (!repositories.equals(other.repositories))
+			return false;
+		return true;
+	}
+
 }

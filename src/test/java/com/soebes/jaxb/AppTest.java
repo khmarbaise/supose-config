@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -21,13 +23,24 @@ public class AppTest extends TestBase {
 	public final String XMLFILE = getTargetDir() + File.separator + "test.xml";
 
 	@Test
-	public void writeXMLOutputTest() throws JAXBException, IOException {
+	public void writeXMLOutputTest() throws JAXBException, IOException, URISyntaxException {
 		JAXBContext context = JAXBContext.newInstance(Configuration.class);
 		Marshaller m = context.createMarshaller();
 		m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
 		Configuration config = new Configuration();
-		config.setName("ThisIsTheName");
+		Repository repo = new Repository();
+		repo.setUri(new URI("file:///svn.test.com/project/trunk"));
+		repo.setUsername("kama");
+		repo.setPassword("password");
+		config.addRepository(repo);
+
+		repo = new Repository();
+		repo.setUri(new URI("http://svn.test.com/p/branches"));
+		repo.setUsername("egon");
+		repo.setPassword("egon");
+		config.addRepository(repo);
+
 		FileOutputStream fout = new FileOutputStream(XMLFILE);
 		m.marshal(config, fout);
 		fout.close();
@@ -38,6 +51,10 @@ public class AppTest extends TestBase {
 		JAXBContext context = JAXBContext.newInstance(Configuration.class);
 		Unmarshaller um = context.createUnmarshaller();
 		Configuration configuration = (Configuration) um.unmarshal(new FileReader(XMLFILE));
-		System.out.println("Configuration: " + configuration.getName());
+		for (Repository repository : configuration.getRepositories()) {
+			System.out.println("Username: " + repository.getUsername());
+			System.out.println("Password: " + repository.getPassword());
+			System.out.println("URL: " + repository.getUri());
+		}
 	}
 }

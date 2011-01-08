@@ -17,14 +17,14 @@ public class Configuration {
     private ArrayList<Repository> repositories = new ArrayList<Repository>();
     private HashMap<String, Repository> results = new HashMap<String, Repository>();
 
-    public void setRepositories(ArrayList<Repository> repositories) {
-        this.repositories = repositories;
-    }
-
     @XmlElementWrapper(name = "repositories")
     @XmlElement(name = "repository")
     public ArrayList<Repository> getRepositories() {
         return repositories;
+    }
+
+    public void setRepositories(ArrayList<Repository> repositories) {
+        this.repositories = repositories;
     }
 
     public void addRepository(Repository repository) {
